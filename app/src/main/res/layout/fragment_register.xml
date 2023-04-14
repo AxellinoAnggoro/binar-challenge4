@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterFragment"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/regName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/regUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regName"
+        android:hint="username"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/regPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regUsername"
+        android:inputType="textPassword"
+        android:hint="password"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/regBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regPassword"
+        android:text="register"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/regLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regBtn"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:minHeight="48dp"
+        android:text="Login Here"
+        android:focusable="true" />
+
+</RelativeLayout>
