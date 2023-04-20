@@ -5,16 +5,17 @@
     <data>
         <variable
             name="note"
-            type="com.axellinoanggoro.binar_challenge4.DataNote" />
+            type="com.axellinoanggoro.binar_challenge4.room.DataNote" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/noteCv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:backgroundTint="@color/teal_200"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        android:layout_margin="20dp"
+        android:layout_marginTop="10dp">
         
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,19 +23,49 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/tvJudul"
+                android:id="@+id/noteId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@{Integer.toString(note.id)}"/>
+
+            <TextView
+                android:id="@+id/noteJudul"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/noteId"
                 android:textColor="@color/white"
                 android:text="@{note.judul}"/>
 
             <TextView
-                android:id="@+id/tvDeskripsi"
+                android:id="@+id/noteCatatan"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvJudul"
+                android:layout_below="@+id/noteJudul"
                 android:textColor="@color/white"
                 android:text="@{note.catatan}"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:padding="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/btnDeleteNote"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/btnEditNote"
+                android:layout_below="@+id/btnDeleteNote"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 

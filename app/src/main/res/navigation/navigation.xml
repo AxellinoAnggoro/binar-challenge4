@@ -21,7 +21,17 @@
         android:id="@+id/homeFragment2"
         android:name="com.axellinoanggoro.binar_challenge4.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment2_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_editFragment"
+            app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment2"
         android:name="com.axellinoanggoro.binar_challenge4.RegisterFragment"
@@ -30,5 +40,28 @@
         <action
             android:id="@+id/action_registerFragment2_to_loginFragment3"
             app:destination="@id/loginFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.axellinoanggoro.binar_challenge4.AddNoteFragment"
+        android:label="fragment_add_note"
+        tools:layout="@layout/fragment_add_note" >
+        <action
+            android:id="@+id/action_addNoteFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.axellinoanggoro.binar_challenge4.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.axellinoanggoro.binar_challenge4.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" >
+        <action
+            android:id="@+id/action_editFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
     </fragment>
 </navigation>

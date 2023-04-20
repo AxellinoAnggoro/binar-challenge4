@@ -1,23 +1,25 @@
 package com.axellinoanggoro.binar_challenge4
 
+import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.axellinoanggoro.binar_challenge4.databinding.NoteItemBinding
+import com.axellinoanggoro.binar_challenge4.room.DataNote
+import com.axellinoanggoro.binar_challenge4.room.NoteDatabase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
-class AdapterNote(var listNote : ArrayList<DataNote>) : RecyclerView.Adapter<AdapterNote.ViewHolder>() {
-    class ViewHolder(val binding : NoteItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bindNotes(itemNotes : DataNote){
-            binding.note = itemNotes
-            binding.noteCv.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putSerializable("key", itemNotes)
-//              navigation
-            }
+class AdapterNote(var listNote: List<DataNote>) :
+    RecyclerView.Adapter<AdapterNote.ViewHolder>() {
 
-        }
+    var dbNote: NoteDatabase? = null
+
+    class ViewHolder(val binding: NoteItemBinding) : RecyclerView.ViewHolder(binding.root) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterNote.ViewHolder {
@@ -26,11 +28,30 @@ class AdapterNote(var listNote : ArrayList<DataNote>) : RecyclerView.Adapter<Ada
     }
 
     override fun onBindViewHolder(holder: AdapterNote.ViewHolder, position: Int) {
-        holder.bindNotes(listNote[position])
-        holder.itemView.setOnClickListener{
-            val bundle = Bundle()
-            bundle.putSerializable("BUNDEL", listNote[position])
+        holder.binding.note = listNote[position]
 
+        holder.binding.btnDeleteNote.setOnClickListener {
+            dbNote = NoteDatabase.getInstance(it.context)
+
+            GlobalScope.async {
+                val delNote = dbNote?.noteDao()?.deleteNote(listNote[position])
+                (holder.itemView.context as HomeFragment).activity?.runOnUiThread {
+                    (holder.itemView.context as HomeFragment)
+                }
+            }
+            Navigation.findNavController(it).navigate(R.id.homeFragment2)
+        }
+
+        holder.binding.btnEditNote.setOnClickListener {
+            var edit = Bundle()
+            edit.putSerializable("dataedit", listNote[position])
+            Navigation.findNavController(it).navigate(R.id.action_homeFragment2_to_editFragment)
+        }
+
+        holder.binding.noteCv.setOnClickListener {
+            var detail = Bundle()
+            detail.putSerializable("detail", listNote[position])
+            Navigation.findNavController(it).navigate(R.id.action_homeFragment2_to_detailFragment)
         }
     }
 
@@ -38,11 +59,8 @@ class AdapterNote(var listNote : ArrayList<DataNote>) : RecyclerView.Adapter<Ada
         return listNote.size
     }
 
-    fun setData(list : ArrayList<DataNote>){
-        this.listNote.addAll(list)
+    fun setData(listNote : ArrayList<DataNote>) {
+        this.listNote = listNote
     }
 
-    interface onItemClickListener{
-        fun onItemClick(nama : String)
-    }
 }
