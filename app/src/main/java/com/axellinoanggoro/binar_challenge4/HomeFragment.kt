@@ -20,8 +20,9 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    lateinit var binding : FragmentHomeBinding
-    var noteDb : NoteDatabase? = null
+    private var _binding : FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    var noteDb: NoteDatabase? = null
     lateinit var adapterNote: AdapterNote
     lateinit var noteViewModel: NoteViewModel
     lateinit var pref: SharedPreferences
@@ -31,7 +32,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -39,13 +40,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         pref = requireContext().getSharedPreferences("data_reg", Context.MODE_PRIVATE)
-        binding?.tvUsername?.text = "Hi, " + pref.getString("nama", "name")
+        _binding?.tvUsername?.text = "Hi, " + pref.getString("nama", "name")
 
         noteDb = NoteDatabase.getInstance(requireContext())
 
-       noteVm()
+        noteVm()
 
         noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+
         noteViewModel.getAllNoteObservers().observe(viewLifecycleOwner, Observer {
             adapterNote.setData(it as ArrayList<DataNote>)
         })
@@ -55,22 +57,32 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun noteVm(){
+    fun noteVm() {
         adapterNote = AdapterNote(ArrayList())
-        binding.noteRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.noteRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.noteRv.adapter = adapterNote
     }
 
     override fun onStart() {
         super.onStart()
+
         GlobalScope.launch {
             var data = noteDb?.noteDao()?.getDataNote()
-            activity?.runOnUiThread{
+
+            activity?.runOnUiThread {
                 adapterNote = AdapterNote(data!!)
-                binding.noteRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                binding.noteRv.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 binding.noteRv.adapter = adapterNote
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 }

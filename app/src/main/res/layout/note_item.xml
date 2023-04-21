@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="note"
+            name="noteItem"
             type="com.axellinoanggoro.binar_challenge4.room.DataNote" />
     </data>
 
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="@{Integer.toString(note.id)}"/>
+                android:text="@{Integer.toString(noteItem.id)}"/>
 
             <TextView
                 android:id="@+id/noteJudul"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/noteId"
                 android:textColor="@color/white"
-                android:text="@{note.judul}"/>
+                android:text="@{noteItem.judul}"/>
 
             <TextView
                 android:id="@+id/noteCatatan"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/noteJudul"
                 android:textColor="@color/white"
-                android:text="@{note.catatan}"/>
+                android:text="@{noteItem.catatan}"/>
 
         </RelativeLayout>
 

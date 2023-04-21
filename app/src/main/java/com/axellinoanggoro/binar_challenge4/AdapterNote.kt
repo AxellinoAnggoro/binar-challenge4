@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -14,8 +15,7 @@ import com.axellinoanggoro.binar_challenge4.room.NoteDatabase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
-class AdapterNote(var listNote: List<DataNote>) :
-    RecyclerView.Adapter<AdapterNote.ViewHolder>() {
+class AdapterNote(var listNote: List<DataNote>) : RecyclerView.Adapter<AdapterNote.ViewHolder>() {
 
     var dbNote: NoteDatabase? = null
 
@@ -28,7 +28,7 @@ class AdapterNote(var listNote: List<DataNote>) :
     }
 
     override fun onBindViewHolder(holder: AdapterNote.ViewHolder, position: Int) {
-        holder.binding.note = listNote[position]
+        holder.binding.noteItem = listNote[position]
 
         holder.binding.btnDeleteNote.setOnClickListener {
             dbNote = NoteDatabase.getInstance(it.context)
@@ -48,19 +48,14 @@ class AdapterNote(var listNote: List<DataNote>) :
             Navigation.findNavController(it).navigate(R.id.action_homeFragment2_to_editFragment)
         }
 
-        holder.binding.noteCv.setOnClickListener {
-            var detail = Bundle()
-            detail.putSerializable("detail", listNote[position])
-            Navigation.findNavController(it).navigate(R.id.action_homeFragment2_to_detailFragment)
-        }
     }
 
     override fun getItemCount(): Int {
         return listNote.size
     }
 
-    fun setData(listNote : ArrayList<DataNote>) {
-        this.listNote = listNote
+    fun setData(note : ArrayList<DataNote>) {
+        this.listNote = note
     }
 
 }

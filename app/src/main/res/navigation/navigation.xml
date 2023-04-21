@@ -51,11 +51,6 @@
             app:destination="@id/homeFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.axellinoanggoro.binar_challenge4.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
-    <fragment
         android:id="@+id/editFragment"
         android:name="com.axellinoanggoro.binar_challenge4.EditFragment"
         android:label="fragment_edit"
