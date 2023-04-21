@@ -13,13 +13,13 @@ import com.axellinoanggoro.binar_challenge4.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
 
-    lateinit var binding : FragmentRegisterBinding
-    lateinit var pref : SharedPreferences
+    private lateinit var binding: FragmentRegisterBinding
+    private lateinit var pref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,11 +39,13 @@ class RegisterFragment : Fragment() {
             regData.putString("password", password)
             regData.apply()
             Toast.makeText(context, "Register Success", Toast.LENGTH_LONG).show()
-            Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_loginFragment3)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_registerFragment2_to_loginFragment3)
         }
 
         binding.regLogin.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_loginFragment3)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_registerFragment2_to_loginFragment3)
         }
     }
 

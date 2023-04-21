@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment"
+    tools:context=".AscFragment"
     android:layout_margin="20dp">
 
     <TextView
@@ -13,11 +13,11 @@
         android:text="welcome username" />
 
     <Button
-        android:id="@+id/btnAsc"
+        android:id="@+id/btnDsc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="sort ascending"/>
+        android:text="sort descending"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/noteRv"
@@ -31,4 +31,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

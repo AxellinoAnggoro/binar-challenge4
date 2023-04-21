@@ -26,7 +26,7 @@
                 android:id="@+id/noteId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:text="@{Integer.toString(noteItem.id)}"/>
 
             <TextView
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/noteId"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:text="@{noteItem.judul}"/>
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/noteJudul"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:text="@{noteItem.catatan}"/>
 
         </RelativeLayout>

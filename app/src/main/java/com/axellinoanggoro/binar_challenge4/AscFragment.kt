@@ -8,10 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.axellinoanggoro.binar_challenge4.databinding.FragmentAscBinding
 import com.axellinoanggoro.binar_challenge4.databinding.FragmentHomeBinding
 import com.axellinoanggoro.binar_challenge4.room.DataNote
 import com.axellinoanggoro.binar_challenge4.room.NoteDatabase
@@ -19,21 +19,21 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+class AscFragment : Fragment() {
+
+    private var _binding: FragmentAscBinding? = null
     private val binding get() = _binding!!
     private var noteDb: NoteDatabase? = null
     private lateinit var adapterNote: AdapterNote
     private lateinit var noteViewModel: NoteViewModel
     private lateinit var pref: SharedPreferences
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentAscBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -56,23 +56,20 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnAdd.setOnClickListener {
-            Toast.makeText(requireContext(), "Add Note Success", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_homeFragment2_to_addNoteFragment)
         }
-
-        binding.btnAsc.setOnClickListener {
-            Toast.makeText(requireContext(), "Showing in Ascending", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_homeFragment2_to_ascFragment)
+        binding.btnDsc.setOnClickListener {
+            Toast.makeText(requireContext(), "Showing in Descending", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_ascFragment_to_homeFragment2)
         }
     }
-
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onStart() {
         super.onStart()
 
         GlobalScope.launch {
-            val data = noteDb?.noteDao()?.getDataNote()
+            val data = noteDb?.noteDao()?.getDataNoteAsc()
 
             activity?.runOnUiThread {
                 adapterNote = AdapterNote(data!!)
@@ -90,3 +87,7 @@ class HomeFragment : Fragment() {
 
 
 }
+
+
+
+

@@ -12,7 +12,10 @@ interface NoteDAO {
     fun insertData(dataNote: DataNote)
 
     @Query("SELECT * FROM DataNote ORDER BY id DESC")
-    fun getDataNote() : List<DataNote>
+    fun getDataNote(): List<DataNote>
+
+    @Query("SELECT * FROM DataNote ORDER BY id ASC")
+    fun getDataNoteAsc(): List<DataNote>
 
     @Delete
     fun deleteNote(dataNote: DataNote)

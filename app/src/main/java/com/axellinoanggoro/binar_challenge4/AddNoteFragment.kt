@@ -1,26 +1,27 @@
 package com.axellinoanggoro.binar_challenge4
 
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.axellinoanggoro.binar_challenge4.databinding.FragmentAddNoteBinding
 import com.axellinoanggoro.binar_challenge4.room.DataNote
 import com.axellinoanggoro.binar_challenge4.room.NoteDatabase
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
 class AddNoteFragment : Fragment() {
-    lateinit var binding:FragmentAddNoteBinding
-    var noteDb : NoteDatabase? = null
+    private lateinit var binding: FragmentAddNoteBinding
+    private var noteDb: NoteDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddNoteBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -35,13 +36,15 @@ class AddNoteFragment : Fragment() {
         }
     }
 
-    fun addData(){
+    @OptIn(DelicateCoroutinesApi::class)
+    fun addData() {
         GlobalScope.async {
-            var judul = binding.noteTitle.text.toString()
-            var catatan = binding.noteContent.text.toString()
+            val judul = binding.noteTitle.text.toString()
+            val catatan = binding.noteContent.text.toString()
 
             noteDb?.noteDao()?.insertData(DataNote(0, judul, catatan))
         }
+        Toast.makeText(requireContext(), "Add Note Success", Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_addNoteFragment_to_homeFragment2)
     }
 
